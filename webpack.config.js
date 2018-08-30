@@ -7,7 +7,7 @@ const BUILD_DIR = path.resolve(__dirname, 'dist');
 
 const htmlPlugin = new HtmlWebpackPlugin({
     template: './src/index.html',
-    filename: './index.html'
+    filename: './index.html',
 });
 
 const config = {
