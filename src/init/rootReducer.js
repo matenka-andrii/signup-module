@@ -1,11 +1,11 @@
 // Core
 import { combineReducers } from 'redux';
+import { reducer as reduxFormReducer } from 'redux-form';
 
 // Instruments
 import { uiReducer as ui } from '../bus/ui/reducer';
-import { formsReducer as forms } from '../bus/forms/reducer';
 
 export const rootReducer = combineReducers({
-    forms,
+    form: reduxFormReducer,
     ui,
 });

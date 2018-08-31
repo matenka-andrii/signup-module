@@ -1,0 +1,58 @@
+.form {
+  padding: 0 11px;
+  label {
+    display: block;
+    line-height: 20px;
+    color: var(--paletteGray2);
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  .error {
+    color: #e03e30;
+  }
+  input[type='text'],
+  input[type='email'],
+  input[type='password']{
+    width: 100%;
+    height: 25px;
+    margin-bottom: 12px;
+    border: 0;
+    border-bottom: 1px solid var(--paletteGray);
+    font-size: 12px;
+    color: var(--paletteBlack);
+    &:focus {
+      outline: 0;
+    }
+  }
+}
+
+.footer {
+  display: flex;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  line-height: 20px;
+  padding: 7px 11px;
+  border-top: 1px solid var(--paletteGray);
+  .next {
+    position: relative;
+    padding-right: 13px;
+    margin-left: auto;
+    border: 0;
+    background-color: transparent;
+    color: var(--paletteBlue);
+    font-size: 14px;
+    cursor: pointer;
+    i {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      margin-top: -4px;
+      width: 10px;
+      height: 8px;
+      background: url('../../theme/assets/arrow.svg') no-repeat 0 0;
+    }
+  }
+}
