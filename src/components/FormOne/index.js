@@ -1,9 +1,10 @@
 // Core
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 
 // Instruments
 import Styles from './styles.scss';
+import Input from '../Input';
 
 const validate = (values) => {
     const errors = {};
@@ -27,24 +28,6 @@ const validate = (values) => {
     return errors;
 };
 
-const renderField = ({
-    input,
-    label,
-    type,
-    meta: { touched, error },
-}) => (
-    <Fragment>
-        <label className = { touched && error ? Styles.error : '' }>
-            {
-                touched && error
-                    ? error
-                    : label
-            }
-        </label>
-        <input { ...input } type = { type } />
-    </Fragment>
-);
-
 const FormOne = (props) => {
     const { handleSubmit, submitting } = props;
 
@@ -52,19 +35,19 @@ const FormOne = (props) => {
         <form onSubmit = { handleSubmit }>
             <div className = { Styles.form }>
                 <Field
-                    component = { renderField }
+                    component = { Input }
                     label = 'Email'
                     name = 'email'
                     type = 'email'
                 />
                 <Field
-                    component = { renderField }
+                    component = { Input }
                     label = 'Password'
                     name = 'password'
                     type = 'password'
                 />
                 <Field
-                    component = { renderField }
+                    component = { Input }
                     label = 'Confirm Password'
                     name = 'confirmPassword'
                     type = 'password'

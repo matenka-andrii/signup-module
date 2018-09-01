@@ -11,6 +11,7 @@ import FormTwo from '../FormTwo';
 import { uiActions } from '../../bus/ui/actions';
 
 const mapStateToProps = (state) => ({
+    form: state.form,
     step: state.ui.get('step'),
 });
 const mapDispatchToProps = (dispatch) => ({
@@ -23,50 +24,70 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 class Signup extends Component {
-    _handleFormSubmit = () => {
-        const { actions, step } = this.props;
+    _goToDashboard = () => {
+        const { form: { signup: { values: { email, password, day, month, year, gender, how_hear_about_us: how = null }}}} = this.props;
+        const date = Date.parse(`${month}/${day}/${year}`);
+        const userData = {
+            user_data: {
+                email,
+                password,
+                date_of_birth:     date,
+                gender,
+                how_hear_about_us: how,
+            },
+        };
 
-        actions.setStepState(step + 1);
+        console.log(JSON.stringify(userData));
     };
+
     _handleBackOnClick = () => {
         const { actions, step } = this.props;
 
         actions.setStepState(step - 1);
     };
 
+    _handleFormSubmit = () => {
+        const { actions, step } = this.props;
+
+        actions.setStepState(step + 1);
+    };
+
     render () {
         const { step } = this.props;
-        let progressClsObj = {};
-        let form = '';
-
-        if (step === 1) {
-            progressClsObj = {
-                [Styles.stepOne]: true,
-            };
-            form = <FormOne onSubmit = { this._handleFormSubmit } />;
-        } else if (step === 2) {
-            progressClsObj = {
-                [Styles.stepTwo]: true,
-            };
-            form = <FormTwo
-                handleBackOnClick = { this._handleBackOnClick }
-                onSubmit = { this._handleFormSubmit }
-            />;
-        } else {
-            progressClsObj = {
-                [Styles.stepThree]: true,
-            };
-        }
-
-        const progressCls = cx(Styles.progressBar, progressClsObj);
 
         return (
             <div className = { Styles.signup }>
-                <div className = { Styles.title }>Signup</div>
-                <div className = { progressCls }>
+                <div className = { Styles.title }>
+                    {
+                        step === 3
+                            ? 'Thank you!'
+                            : 'Signup'
+                    }
+                </div>
+                <div
+                    className = {
+                        step === 1
+                            ? cx(Styles.progressBar, Styles.stepOne)
+                            : step === 2
+                                ? cx(Styles.progressBar, Styles.stepTwo)
+                                : cx(Styles.progressBar, Styles.stepThree)
+                    }>
                     <div />
                 </div>
-                { form }
+                {
+                    step === 1
+                        ? <FormOne onSubmit = { this._handleFormSubmit } />
+                        : step === 2
+                            ? <FormTwo handleBackOnClick = { this._handleBackOnClick } onSubmit = { this._handleFormSubmit } />
+                            : <div className = { Styles.done }>
+                                <i />
+                                <span
+                                    onClick = { this._goToDashboard }>
+                                    Go to Dashboard
+                                    <i />
+                                </span>
+                            </div>
+                }
             </div>
         );
     }

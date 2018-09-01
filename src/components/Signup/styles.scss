@@ -1,7 +1,7 @@
 .signup {
     position: relative;
     width: 300px;
-    min-height: 296px;
+    min-height: 305px;
     margin: 0 auto;
     border: 1px solid var(--paletteGray);
     border-radius: 4px;
@@ -40,6 +40,37 @@
     .stepThree {
         div {
             width: calc(100% + 2px);
+        }
+    }
+    .done {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        & > i {
+            width: 120px;
+            height: 120px;
+            margin: 30px 0 20px;
+            border-radius: 100%;
+            background-color: var(--paletteGreen);
+        }
+        span {
+            position: relative;
+            line-height: 32px;
+            padding: 0 26px 0 8px;
+            border: 1px solid var(--paletteBlue);
+            border-radius: 3px;
+            color: var(--paletteBlue);
+            font-size: 13px;
+            cursor: pointer;
+            i {
+                position: absolute;
+                right: 8px;
+                top: 50%;
+                margin-top: -4px;
+                width: 10px;
+                height: 8px;
+                background: url('../../theme/assets/arrow.svg') no-repeat 0 0;
+            }
         }
     }
 }

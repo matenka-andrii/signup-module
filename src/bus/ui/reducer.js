@@ -5,7 +5,7 @@ import { Map } from 'immutable';
 import { types } from './types';
 
 const initialState = Map({
-    step: 2,
+    step: 1,
 });
 
 export const uiReducer = (state = initialState, action) => {

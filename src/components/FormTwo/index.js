@@ -1,9 +1,12 @@
 // Core
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Field, Fields, reduxForm } from 'redux-form';
 
 // Instruments
 import Styles from './styles.scss';
+import DateFields from '../Date';
+import Radio from '../Radio';
+import Select from '../Select';
 
 const validate = (values) => {
     const errors = {};
@@ -24,7 +27,7 @@ const validate = (values) => {
         const m = today.getMonth() - birthDate.getMonth();
 
         if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-            age--;
+            age -= 1;
         }
 
         return age;
@@ -38,106 +41,11 @@ const validate = (values) => {
     } else if (getAge(birth) < 18) {
         errors.year = 'Sorry, you must be at least 18 years old';
     }
+    if (!values.gender) {
+        errors.gender = 'Gender is required';
+    }
 
     return errors;
-};
-
-const renderField = ({
-    input,
-    label,
-    type,
-    meta: { touched, error },
-}) => (
-    <Fragment>
-        <label className = { touched && error ? Styles.error : '' }>
-            {
-                touched && error
-                    ? error
-                    : label
-            }
-        </label>
-        <input { ...input } type = { type } />
-    </Fragment>
-);
-
-const renderFields = (fields) => {
-    console.log(fields);
-
-    return (
-        <Fragment>
-            <label
-                className = {
-                    fields.year.meta.touched && fields.year.meta.error
-                        ? Styles.error
-                        : ''
-                }>
-                {
-                    fields.year.meta.touched && fields.year.meta.error
-                        ? fields.year.meta.error
-                        : 'Date of Birth'
-                }
-            </label>
-            <div className = { Styles.date }>
-                <input
-                    min = '1'
-                    placeholder = 'DD'
-                    type = 'number'
-                    { ...fields.day.input }
-                />
-                <input
-                    max = '12'
-                    min = '1'
-                    placeholder = 'MM'
-                    type = 'number'
-                    { ...fields.month.input }
-                />
-                <input
-                    placeholder = 'YYYY'
-                    type = 'number'
-                    { ...fields.year.input }
-                />
-            </div>
-        </Fragment>
-    );
-};
-
-const renderRadio = (fields) => {
-    return (
-        <Fragment>
-            <label
-                className = {
-                    fields.gender.meta.error
-                        ? Styles.error
-                        : ''
-                }>
-                {
-                    fields.gender.meta.error
-                        ? fields.gender.meta.error
-                        : 'Gender'
-                }
-            </label>
-            <div className = { Styles.gender }>
-                <label>
-
-                </label>
-                <input
-                    type = 'radio'
-                    //value = 'male'
-                    { ...fields.gender.input }
-                />
-                <input
-                    type = 'radio'
-                    //value = 'female'
-                    { ...fields.gender.input }
-                />
-                <input
-                    type = 'radio'
-                    //value = 'unspecified'
-                    { ...fields.gender.input }
-                />
-            </div>
-        </Fragment>
-    );
 };
 
 const FormTwo = (props) => {
@@ -147,12 +55,29 @@ const FormTwo = (props) => {
         <form onSubmit = { handleSubmit }>
             <div className = { Styles.form }>
                 <Fields
-                    component = { renderFields }
+                    component = { DateFields }
                     names = { ['day', 'month', 'year'] }
                 />
-                <Fields
-                    component = { renderRadio }
-                    names = { ['gender'] }
+                <Field
+                    component = { Radio }
+                    label = 'Gender'
+                    name = 'gender'
+                    options = { {
+                        male:        'Male',
+                        female:      'Female',
+                        unspecified: 'Unspecified',
+                    } }
+                />
+                <Field
+                    component = { Select }
+                    label = 'Where did you hear about is?'
+                    name = 'how_hear_about_us'
+                    options = { {
+                        radio:   'Radio',
+                        tv:      'TV',
+                        outdoor: 'Outdoor',
+                        friend:  'From a Friend',
+                    } }
                 />
             </div>
             <div className = { Styles.footer }>

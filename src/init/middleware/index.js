@@ -13,7 +13,7 @@ const logger = createLogger({
         error:     () => '#ff0005',
     },
 });
-const middleware = [thunk];
+const middleware = [];
 const dev = process.env.NODE_ENV === 'development';
 
 if (dev) {
