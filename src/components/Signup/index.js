@@ -1,5 +1,6 @@
 // Core
 import React, { Component } from 'react';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import cx from 'classnames';
@@ -74,20 +75,47 @@ class Signup extends Component {
                     }>
                     <div />
                 </div>
-                {
-                    step === 1
-                        ? <FormOne onSubmit = { this._handleFormSubmit } />
-                        : step === 2
-                            ? <FormTwo handleBackOnClick = { this._handleBackOnClick } onSubmit = { this._handleFormSubmit } />
-                            : <div className = { Styles.done }>
-                                <i />
-                                <span
-                                    onClick = { this._goToDashboard }>
-                                    Go to Dashboard
-                                    <i />
-                                </span>
-                            </div>
-                }
+                <TransitionGroup
+                    exit = { false }>
+                    {
+                        step === 1
+                            ? <CSSTransition
+                                classNames = { {
+                                    enter:       Styles.enter,
+                                    enterActive: Styles.entered,
+                                } }
+                                key = { step }
+                                timeout = { { enter: 500, exit: 0 } }>
+                                <FormOne onSubmit = { this._handleFormSubmit } />
+                            </CSSTransition>
+                            : step === 2
+                                ? <CSSTransition
+                                    classNames = { {
+                                        enter:       Styles.enter,
+                                        enterActive: Styles.entered,
+                                    } }
+                                    key = { step }
+                                    timeout = { { enter: 500, exit: 0 } }>
+                                    <FormTwo handleBackOnClick = { this._handleBackOnClick } onSubmit = { this._handleFormSubmit } />
+                                </CSSTransition>
+                                : <CSSTransition
+                                    classNames = { {
+                                        enter:       Styles.enter,
+                                        enterActive: Styles.entered,
+                                    } }
+                                    key = { step }
+                                    timeout = { { enter: 500, exit: 0 } }>
+                                    <div className = { Styles.done }>
+                                        <i />
+                                        <span
+                                            onClick = { this._goToDashboard }>
+                                            Go to Dashboard
+                                            <i />
+                                        </span>
+                                    </div>
+                                </CSSTransition>
+                    }
+                </TransitionGroup>
             </div>
         );
     }

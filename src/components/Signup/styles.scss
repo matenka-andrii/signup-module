@@ -24,7 +24,7 @@
             width: 0;
             height: 6px;
             background-color: var(--paletteBlue);
-            transition: width .3s ease;
+            transition: width .5s ease;
         }
     }
     .stepOne {
@@ -51,7 +51,7 @@
             height: 120px;
             margin: 30px 0 20px;
             border-radius: 100%;
-            background-color: var(--paletteGreen);
+            background: url('../../theme/assets/done.svg') no-repeat center center var(--paletteGreen);
         }
         span {
             position: relative;
@@ -72,5 +72,13 @@
                 background: url('../../theme/assets/arrow.svg') no-repeat 0 0;
             }
         }
+    }
+
+    .enter {
+        opacity: 0;
+    }
+    .entered {
+        transition: opacity .5s ease;
+        opacity: 1;
     }
 }
