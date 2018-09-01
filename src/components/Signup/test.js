@@ -117,3 +117,33 @@ onChange = { this._handleFieldChange }
                         </span>
     </div>
 </Form>
+
+
+
+<label>
+<Field
+component = 'input'
+name = 'gender'
+type = 'radio'
+value = 'male'
+    />{' '}
+Male
+</label>
+<label>
+    <Field
+        component = 'input'
+        name = 'gender'
+        type = 'radio'
+        value = 'female'
+    />{' '}
+    Female
+</label>
+<label>
+<Field
+component = 'input'
+name = 'gender'
+type = 'radio'
+value = 'unspecified'
+    />{' '}
+Unspecified
+</label>
